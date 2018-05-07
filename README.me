@@ -1,1 +1,23 @@
-Offical convertor from DM to OKG rep
+Offical convertor from DM to OKG representation
+=================
+
+Current Version supports building basic OKG representation from a tokenized sentence (DM)
+
+## Version features
+	currently we take every noun or verb to be an element mention,
+	for finding statement edge mentions we search for ARG1/ARG2 connectins, 
+	and finally joining the word and the related predicate and also the semantic context
+
+## Simple exmaple
+	sentences = "The doctor stated he was told his physical safety was in jeopardy"
+	Result:
+    {
+        'element_mentions': {'jeopardy', 'told', 'doctor', 'stated', 'was', 'safety'},
+        'statement_edge_mentions': [('stated', 'doctor', 'Who'),
+                                    ('told', 'doctor', 'What'),
+                                    ('told', 'he', 'Who'),
+                                    ('stated', 'told', 'Who'),
+                                    ('told', 'physical', 'What'),
+                                    ('told', 'safety', 'What'),
+                                    ('told', 'jeopardy', 'What')]
+    }

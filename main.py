@@ -7,7 +7,7 @@ sentences = load_sdp_data("res\dm-sentences.pred")
 """
 case study:
     sentences[390] = "The doctor stated he was told his physical safety was in jeopardy"
-    Results:
+    Result:
     {
         'element_mentions': {'jeopardy', 'told', 'doctor', 'stated', 'was', 'safety'},
         'statement_edge_mentions': [('stated', 'doctor', 'Who'),
