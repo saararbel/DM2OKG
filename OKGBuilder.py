@@ -9,11 +9,14 @@ def isNounOrVerb(pos):
 
 
 def createOKGStructure(sentence_ctx):
-    okg = {"element_mentions": [], "statement_edge_mentions": []}
-
+    okg = {}
     sentence_elements = []
+    word_indices = {}
     statement_edge_mentions = []
     sentence_tokens = sentence_ctx["tokens"]
+
+    for key in sentence_tokens:
+        word_indices[sentence_tokens[key]['form']] = int(sentence_tokens[key]['id'])-1
     sentence_predicates = {}
     count = 1
 
@@ -25,7 +28,7 @@ def createOKGStructure(sentence_ctx):
             sentence_predicates[count] = sentence_tokens[tokenId]["form"]
             count += 1
 
-    okg["element_mentions"] = set(sentence_elements)
+    okg["element_mentions"] = [(k,v+1) for v,k in enumerate(sentence_elements)]
 
     for tokenId in sentence_tokens:
         for idx,arg in enumerate(ARGS):
@@ -34,5 +37,7 @@ def createOKGStructure(sentence_ctx):
                     (sentence_predicates[idx+1], sentence_tokens[tokenId]["form"], sentence_tokens[tokenId][arg]))
 
     okg["statement_edge_mentions"] = statement_edge_mentions
+    okg["word_indices"] = word_indices
+    okg["sentence"] = sentence_ctx["sentence"]
 
     return okg
